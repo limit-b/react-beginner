@@ -1,5 +1,21 @@
+// import React from 'react';
+import PropTypes from 'prop-types';
 // import logo from './logo.svg';
 // import './App.css';
+
+// class Food extends React.Component {
+//     static propTypes = { favorite: PropTypes.string.isRequired };
+
+//     render() {
+//         const { favorite } = this.props;
+//         return <h1>{favorite}</h1>;
+//     }
+// }
+
+function Food({ favorite }) {
+    return <h1>{favorite}</h1>;
+}
+Food.propTypes = { favorite: PropTypes.string.isRequired };
 
 function App() {
     return (
@@ -18,7 +34,11 @@ function App() {
                     Learn React
                 </a>
             </header> */}
-            Hello! good
+            <h1>Hello! good</h1>
+            <Food favorite="kimchi" />
+            <Food favorite="ramen" />
+            <Food favorite="rice" />
+            <Food favorite="chicken" />
         </div>
     );
 }
