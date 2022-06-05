@@ -6,14 +6,21 @@ import React from 'react';
 class App extends React.Component {
     state = { count: 0 };
 
-    // eslint-disable-next-line class-methods-use-this
     add = () => {
-        console.log('add');
+        this.setState((current) => ({ count: current.count + 1 }));
     };
 
-    // eslint-disable-next-line class-methods-use-this
     minus = () => {
-        console.log('minus');
+        if (this.state.count <= 0) {
+            this.setState({ count: 0 });
+        } else {
+            this.setState((current) => ({ count: current.count - 1 }));
+        }
+    };
+
+    range = () => {
+        // eslint-disable-next-line no-console
+        console.log(this.state.count);
     };
 
     render() {
@@ -22,6 +29,11 @@ class App extends React.Component {
                 <h1>The number is : {this.state.count}</h1>
                 <button onClick={this.add}>Add</button>
                 <button onClick={this.minus}>Minus</button>
+                <input
+                    value={this.state.count}
+                    type="range"
+                    onChange={this.range}
+                />
             </div>
         );
     }
