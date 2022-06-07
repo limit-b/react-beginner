@@ -1,10 +1,17 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-console */
 import React from 'react';
 // import PropTypes from 'prop-types';
 // import logo from './logo.svg';
 // import './App.css';
 
 class App extends React.Component {
-    state = { count: 0 };
+    constructor(props) {
+        super(props);
+        console.log('constructor');
+    }
+
+    state = { isLoading: true, movies: [], count: 0 };
 
     add = () => {
         this.setState((current) => ({ count: current.count + 1 }));
@@ -19,21 +26,40 @@ class App extends React.Component {
     };
 
     range = () => {
-        // eslint-disable-next-line no-console
         console.log(this.state.count);
     };
 
+    componentDidMount() {
+        console.log('mount');
+        setTimeout(
+            () =>
+                this.setState({
+                    isLoading: false,
+                    // state에 default 값을 선언하는 것은 필수가 아님
+                    book: true,
+                }),
+            6000
+        );
+    }
+
+    componentDidUpdate() {
+        console.log('update');
+    }
+
+    componentWillUnmount() {
+        console.log('unmount');
+    }
+
     render() {
+        const { isLoading, count } = this.state;
+        console.log('render test');
         return (
             <div>
-                <h1>The number is : {this.state.count}</h1>
+                <div>{isLoading ? 'Loading...' : 'We are ready'}</div>
+                <h1>The number is : {count}</h1>
                 <button onClick={this.add}>Add</button>
                 <button onClick={this.minus}>Minus</button>
-                <input
-                    value={this.state.count}
-                    type="range"
-                    onChange={this.range}
-                />
+                <input value={count} type="range" onChange={this.range} />
             </div>
         );
     }
