@@ -1,7 +1,8 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
 import React from 'react';
-// import PropTypes from 'prop-types';
+import axios from 'axios';
+import Movie from './Movie';
 // import logo from './logo.svg';
 // import './App.css';
 
@@ -11,35 +12,19 @@ class App extends React.Component {
         console.log('constructor');
     }
 
-    state = { isLoading: true, movies: [], count: 0 };
+    state = { isLoading: true, movies: [] };
 
-    add = () => {
-        this.setState((current) => ({ count: current.count + 1 }));
-    };
-
-    minus = () => {
-        if (this.state.count <= 0) {
-            this.setState({ count: 0 });
-        } else {
-            this.setState((current) => ({ count: current.count - 1 }));
-        }
-    };
-
-    range = () => {
-        console.log(this.state.count);
+    getMovies = async () => {
+        const ytsJson = await axios.get(
+            'https://yts-proxy.now.sh/list_movies.json?sort_by=rating'
+        );
+        const { movies } = ytsJson.data.data;
+        this.setState({ isLoading: false, movies });
     };
 
     componentDidMount() {
         console.log('mount');
-        setTimeout(
-            () =>
-                this.setState({
-                    isLoading: false,
-                    // state에 default 값을 선언하는 것은 필수가 아님
-                    book: true,
-                }),
-            6000
-        );
+        this.getMovies();
     }
 
     componentDidUpdate() {
@@ -51,15 +36,28 @@ class App extends React.Component {
     }
 
     render() {
-        const { isLoading, count } = this.state;
-        console.log('render test');
+        const { isLoading, movies } = this.state;
+        console.log('render');
         return (
             <div>
-                <div>{isLoading ? 'Loading...' : 'We are ready'}</div>
-                <h1>The number is : {count}</h1>
-                <button onClick={this.add}>Add</button>
-                <button onClick={this.minus}>Minus</button>
-                <input value={count} type="range" onChange={this.range} />
+                <span>
+                    {isLoading ? (
+                        'Loading...'
+                    ) : (
+                        <ul>
+                            {movies.map((movie) => (
+                                <Movie
+                                    key={movie.id}
+                                    id={movie.id}
+                                    year={movie.year}
+                                    title={movie.title}
+                                    summary={movie.summary}
+                                    poster={movie.medium_cover_image}
+                                />
+                            ))}
+                        </ul>
+                    )}
+                </span>
             </div>
         );
     }
