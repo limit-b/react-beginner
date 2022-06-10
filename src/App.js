@@ -1,17 +1,11 @@
 /* eslint-disable class-methods-use-this */
-/* eslint-disable no-console */
 import React from 'react';
 import axios from 'axios';
 import Movie from './Movie';
 // import logo from './logo.svg';
-// import './App.css';
+import './App.css';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log('constructor');
-    }
-
     state = { isLoading: true, movies: [] };
 
     getMovies = async () => {
@@ -23,42 +17,32 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        console.log('mount');
         this.getMovies();
-    }
-
-    componentDidUpdate() {
-        console.log('update');
-    }
-
-    componentWillUnmount() {
-        console.log('unmount');
     }
 
     render() {
         const { isLoading, movies } = this.state;
-        console.log('render');
         return (
-            <div>
-                <span>
-                    {isLoading ? (
-                        'Loading...'
-                    ) : (
-                        <ul>
-                            {movies.map((movie) => (
-                                <Movie
-                                    key={movie.id}
-                                    id={movie.id}
-                                    year={movie.year}
-                                    title={movie.title}
-                                    summary={movie.summary}
-                                    poster={movie.medium_cover_image}
-                                />
-                            ))}
-                        </ul>
-                    )}
-                </span>
-            </div>
+            <section className="App">
+                {isLoading ? (
+                    <div className="loader">
+                        <span className="loader__text">Loading...</span>
+                    </div>
+                ) : (
+                    <div className="movies-wrap">
+                        {movies.map((movie) => (
+                            <Movie
+                                key={movie.id}
+                                id={movie.id}
+                                year={movie.year}
+                                title={movie.title}
+                                summary={movie.summary}
+                                poster={movie.medium_cover_image}
+                            />
+                        ))}
+                    </div>
+                )}
+            </section>
         );
     }
 }
