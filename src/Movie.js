@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import './Movie.css';
 
-// function component의 인자로 props 말고 props의 특정 값만 가져올 때는 꼭 curly bracket(중괄호)으로 감싸야 함
 // eslint-disable-next-line no-unused-vars
-function Movie({ id, year, title, summary, poster }) {
+function Movie({ id, title, year, genres, summary, poster }) {
     return (
         <div className="Movie">
             <img title={title} src={poster} alt={title} />
@@ -12,6 +11,11 @@ function Movie({ id, year, title, summary, poster }) {
                     {title}
                 </h1>
                 <span className="movie-data__year">{year}</span>
+                <ul className="movie-data__genres">
+                    {genres.map((genre, index) => (
+                        <li key={index}>{genre}</li>
+                    ))}
+                </ul>
                 <p className="movie-data__summary">{summary}</p>
             </div>
         </div>
@@ -19,8 +23,9 @@ function Movie({ id, year, title, summary, poster }) {
 }
 Movie.propTypes = {
     id: PropTypes.number.isRequired,
-    year: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.string).isRequired,
     summary: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
 };

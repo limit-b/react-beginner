@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import React from 'react';
 import axios from 'axios';
 import Movie from './Movie';
@@ -34,8 +33,9 @@ class App extends React.Component {
                             <Movie
                                 key={movie.id}
                                 id={movie.id}
-                                year={movie.year}
                                 title={movie.title}
+                                year={movie.year}
+                                genres={movie.genres}
                                 summary={movie.summary}
                                 poster={movie.medium_cover_image}
                             />
