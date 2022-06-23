@@ -1,26 +1,34 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './Movie.css';
 
 // eslint-disable-next-line no-unused-vars
 function Movie({ id, title, year, genres, summary, poster }) {
     return (
-        <div className="Movie">
-            <img title={title} src={poster} alt={title} />
-            <div className="movie-data">
-                <h1 style={{ color: 'teal' }} className="movie-data__title">
-                    {title}
-                </h1>
-                <span className="movie-data__year">{year}</span>
-                <ul className="movie-data__genres">
-                    {genres.map((genre, index) => (
-                        <li key={index}>{genre}</li>
-                    ))}
-                </ul>
-                <p className="movie-data__summary">
-                    {summary.slice(0, 180)}...
-                </p>
+        <Link
+            to={{
+                pathname: 'movie-detail',
+                state: { title, year, genres, summary, poster },
+            }}
+        >
+            <div className="Movie">
+                <img title={title} src={poster} alt={title} />
+                <div className="movie-data">
+                    <h1 style={{ color: 'teal' }} className="movie-data__title">
+                        {title}
+                    </h1>
+                    <span className="movie-data__year">{year}</span>
+                    <ul className="movie-data__genres">
+                        {genres.map((genre, index) => (
+                            <li key={index}>{genre}</li>
+                        ))}
+                    </ul>
+                    <p className="movie-data__summary">
+                        {summary.slice(0, 180)}...
+                    </p>
+                </div>
             </div>
-        </div>
+        </Link>
     );
 }
 Movie.propTypes = {

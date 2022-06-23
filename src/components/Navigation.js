@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
+import './Navigation.css';
 
 function Navigation() {
     return (
-        <nav>
+        <nav className="Navigation">
             <Link to="/">Home</Link>
             <Link to="about">About</Link>
         </nav>

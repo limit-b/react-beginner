@@ -1,0 +1,34 @@
+.Navigation {
+  position: fixed;
+  top: 50px;
+  left: 10px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: var(--main-shadow);
+}
+
+@media screen and (max-width: 1090px) {
+  .Navigation {
+    top: initial;
+    bottom: 0px;
+    left: initial;
+    width: 100%;
+  }
+}
+
+.Navigation a {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0008fc;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.Navigation a:not(:last-child) {
+  margin-bottom: 20px;
+}
