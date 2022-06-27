@@ -2,14 +2,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Movie.css';
 
-// eslint-disable-next-line no-unused-vars
 function Movie({ id, title, year, genres, summary, poster }) {
     return (
         <Link
-            to={{
-                pathname: 'movie-detail',
-                state: { title, year, genres, summary, poster },
-            }}
+            to={`movie/${id}`}
+            state={{ title, year, genres, summary, poster }}
         >
             <div className="Movie">
                 <img title={title} src={poster} alt={title} />
